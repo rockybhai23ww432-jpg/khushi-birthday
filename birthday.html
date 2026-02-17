@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Khushi 🎉</title>
+
+<style>
+:root {
+    --bg1: #667eea;
+    --bg2: #764ba2;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Header */
+h1 {
+    margin-top: 30px;
+    font-size: 38px;
+}
+
+/* Cake */
+.cake {
+    font-size: 60px;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Message */
+.message {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 15px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Countdown */
+#countdown {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+/* Theme Switcher */
+.theme-switcher button {
+    margin: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Gallery */
+.gallery-container {
+    position: relative;
+    width: 90%;
+    max-width: 650px;
+    height: 400px;
+    margin: 25px auto;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.gallery-slide.active {
+    opacity: 1;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    color: white;
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+/* Music Button */
+.music-btn {
+    margin-top: 10px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+
+/* Balloons */
+.balloon {
+    position: fixed;
+    bottom: -100px;
+    font-size: 30px;
+    animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+    to { transform: translateY(-110vh); }
+}
+
+footer {
+    margin: 20px;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Birthday Khushi 🎉</h1>
+
+<div class="cake">🎂</div>
+
+<div class="message">
+Wishing you a day filled with laughter, happiness, and everything you love.  
+May this year bring you success, positivity, and amazing opportunities.  
+Keep smiling and shining the way you always do ✨  
+You truly deserve the best today and always!
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
+
+<div id="countdown"></div>
+
+<div class="theme-switcher">
+    <button onclick="setTheme('#667eea','#764ba2')">Purple</button>
+    <button onclick="setTheme('#ff9a9e','#fad0c4')">Pink</button>
+    <button onclick="setTheme('#43cea2','#185a9d')">Green</button>
+    <button onclick="setTheme('#f7971e','#ffd200')">Orange</button>
+</div>
+
+<div class="gallery-container">
+    <div class="gallery-slide active">
+        <img src="khushi.jpg">
+    </div>
+    <div class="gallery-slide">
+        <img src="khushii.jpg">
+    </div>
+    <div class="gallery-slide">
+        <img src="image.jpg">
+    </div>
+
+    <button class="prev" onclick="changeSlide(-1)">❮</button>
+    <button class="next" onclick="changeSlide(1)">❯</button>
+</div>
+
+<footer>Made with best wishes 🎈✨</footer>
+
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* Music Control */
+let music = document.getElementById("bgMusic");
+let isPlaying = false;
+
+function toggleMusic() {
+    if (!isPlaying) {
+        music.play();
+        isPlaying = true;
+        document.querySelector(".music-btn").innerText = "⏸ Pause Music";
+    } else {
+        music.pause();
+        isPlaying = false;
+        document.querySelector(".music-btn").innerText = "🎵 Play Music";
+    }
+}
+
+/* Theme */
+function setTheme(c1,c2){
+    document.documentElement.style.setProperty('--bg1', c1);
+    document.documentElement.style.setProperty('--bg2', c2);
+}
+
+/* Countdown */
+let today = new Date();
+let year = today.getFullYear();
+let birthday = new Date("February 20, " + year + " 00:00:00");
+
+if (today > birthday) {
+    birthday = new Date("February 20, " + (year + 1) + " 00:00:00");
+}
+
+setInterval(function(){
+    const now = new Date().getTime();
+    const distance = birthday - now;
+
+    const days = Math.floor(distance/(1000*60*60*24));
+    const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+    const seconds = Math.floor((distance%(1000*60))/1000);
+
+    document.getElementById("countdown").innerHTML =
+        days+" Days "+hours+" Hours "+minutes+
+        " Minutes "+seconds+" Seconds 🎈";
+},1000);
+
+/* Gallery */
+let currentSlide = 0;
+let slides = document.querySelectorAll(".gallery-slide");
+
+function showSlide(index){
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[index].classList.add("active");
+}
+
+function changeSlide(dir){
+    currentSlide += dir;
+    if(currentSlide<0) currentSlide = slides.length-1;
+    if(currentSlide>=slides.length) currentSlide = 0;
+    showSlide(currentSlide);
+}
+
+setInterval(()=>{ changeSlide(1); },4000);
+
+/* Confetti */
+function createConfetti(){
+    const c=document.createElement("div");
+    c.classList.add("confetti");
+    c.style.left=Math.random()*100+"vw";
+    c.style.backgroundColor="hsl("+Math.random()*360+",100%,50%)";
+    c.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>{c.remove();},5000);
+}
+setInterval(createConfetti,150);
+
+/* Balloons */
+function createBalloon(){
+    const b=document.createElement("div");
+    b.classList.add("balloon");
+    b.innerHTML="🎈";
+    b.style.left=Math.random()*100+"vw";
+    b.style.animationDuration=Math.random()*5+5+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>{b.remove();},9000);
+}
+setInterval(createBalloon,2000);
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
